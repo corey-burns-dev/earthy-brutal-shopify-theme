@@ -2,10 +2,12 @@
   --earth-bg: #f5f1ea;
   --earth-paper: #faf6ef;
   --earth-ink: #3d2d1f;
-  --earth-clay: #c67a4a;
+  --earth-clay: #a94a20;
+  --earth-clay-deep: #7f3213;
   --earth-moss: #7a8b5c;
-  --earth-sand: #c9a87c;
+  --earth-sand: #e1b27a;
   --earth-stone: #8b7355;
+  --earth-shadow-ink: #24180f;
   --border-heavy: 4px solid var(--earth-ink);
 }
 
@@ -162,22 +164,48 @@ a {
   display: inline-block;
   cursor: pointer;
   font-family: "Arial Black", Impact, sans-serif;
+  background: var(--earth-paper);
+  color: var(--earth-ink);
+  box-shadow: 5px 5px 0 0 var(--earth-shadow-ink);
   transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
 }
 
 .earth-btn--light {
-  background: var(--earth-paper);
+  background: var(--earth-sand);
   color: var(--earth-ink);
 }
 
 .earth-btn--dark {
-  background: var(--earth-ink);
+  background: var(--earth-clay);
   color: #fff;
+  border-color: #2a170f;
 }
 
 .earth-btn:hover {
   transform: translate(1px, 1px);
-  box-shadow: none;
+  box-shadow: 4px 4px 0 0 var(--earth-shadow-ink);
+  background: var(--earth-ink);
+  color: #fff;
+}
+
+.earth-btn--moss {
+  background: var(--earth-moss);
+  color: #fff;
+}
+
+.earth-btn--moss:hover {
+  background: #5f7144;
+  color: #fff;
+}
+
+.earth-btn--dark:hover {
+  background: var(--earth-clay-deep);
+  color: #fff;
+}
+
+.earth-btn--light:hover {
+  background: #bf5b2e;
+  color: #fff;
 }
 
 .earth-hero {
@@ -726,7 +754,7 @@ a {
 }
 
 .earth-btn--clay {
-  background: var(--earth-clay);
-  border-color: transparent;
+  background: #708451;
+  border-color: var(--earth-ink);
   color: #fff;
 }
