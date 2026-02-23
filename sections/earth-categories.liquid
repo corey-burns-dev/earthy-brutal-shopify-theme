@@ -1,0 +1,67 @@
+<section class="page-shell earth-page-tight">
+  <div class="earth-wrap">
+    <div class="earth-filter earth-shadow-md">
+      <p class="earth-filter-label">{{ section.settings.heading_label }}</p>
+      <div class="earth-filter-row">
+        {%- for block in section.blocks -%}
+          <a
+            {% if block.settings.link != blank %}
+              href="{{ block.settings.link }}"
+            {% else %}
+              href="#"
+            {% endif %}
+            class="earth-btn earth-btn--dark earth-shadow-sm"
+            {{ block.shopify_attributes }}
+          >
+            {{ block.settings.label }}
+          </a>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Earth Categories",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading_label",
+      "label": "Heading label",
+      "default": "Categories:"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "CATEGORY"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Earth Categories",
+      "blocks": [
+        { "type": "category", "settings": { "label": "ALL" } },
+        { "type": "category", "settings": { "label": "TOPS" } },
+        { "type": "category", "settings": { "label": "BOTTOMS" } },
+        { "type": "category", "settings": { "label": "FOOTWEAR" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

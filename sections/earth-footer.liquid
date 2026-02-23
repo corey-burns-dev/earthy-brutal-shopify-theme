@@ -1,0 +1,127 @@
+<section class="page-shell earth-page-tight earth-page-bottom">
+  <div class="earth-wrap">
+    <footer class="earth-footer earth-footer-boost">
+      <div class="earth-footer-grid">
+        <div>
+          <h4 class="earth-title earth-foot-heading earth-foot-heading--clay">{{ section.settings.newsletter_heading }}</h4>
+
+          {%- form 'customer', class: 'earth-newsletter' -%}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <input
+              class="earth-field earth-mono"
+              type="email"
+              name="contact[email]"
+              value="{% if customer %}{{ customer.email }}{% endif %}"
+              placeholder="{{ section.settings.newsletter_placeholder }}"
+              required
+            >
+            <button type="submit" class="earth-btn earth-btn--clay earth-shadow-sm earth-w-full">
+              {{ section.settings.newsletter_button_label }}
+            </button>
+          {%- endform -%}
+        </div>
+
+        <div>
+          <h4 class="earth-title earth-foot-heading earth-foot-heading--moss">{{ section.settings.categories_heading }}</h4>
+          <ul class="earth-list earth-mono">
+            {%- for link in linklists[section.settings.categories_menu].links -%}
+              <li><a href="{{ link.url }}">&gt; {{ link.title }}</a></li>
+            {%- else -%}
+              <li>&gt; Tops</li>
+              <li>&gt; Bottoms</li>
+              <li>&gt; Footwear</li>
+              <li>&gt; Bags</li>
+              <li>&gt; Natural</li>
+            {%- endfor -%}
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="earth-title earth-foot-heading earth-foot-heading--sand">{{ section.settings.links_heading }}</h4>
+          <ul class="earth-list earth-mono">
+            {%- for link in linklists[section.settings.links_menu].links -%}
+              <li><a href="{{ link.url }}">&gt; {{ link.title }}</a></li>
+            {%- else -%}
+              <li>&gt; Sustainability</li>
+              <li>&gt; Our Story</li>
+              <li>&gt; Contact</li>
+              <li>&gt; Returns</li>
+            {%- endfor -%}
+          </ul>
+        </div>
+
+        <div class="earth-corner">
+          <h4 class="earth-title earth-brand-mark">{{ section.settings.brand_name }}</h4>
+          <p class="earth-mono earth-brand-meta">{{ section.settings.brand_meta }}</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Earth Footer",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "categories_menu",
+      "label": "Categories menu",
+      "info": "Used for the categories column. If empty, fallback links are shown."
+    },
+    {
+      "type": "link_list",
+      "id": "links_menu",
+      "label": "Links menu",
+      "info": "Used for the links column. If empty, fallback links are shown."
+    },
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "label": "Newsletter heading",
+      "default": "Newsletter"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_placeholder",
+      "label": "Newsletter email placeholder",
+      "default": "ENTER_EMAIL"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_button_label",
+      "label": "Newsletter button label",
+      "default": "Subscribe"
+    },
+    {
+      "type": "text",
+      "id": "categories_heading",
+      "label": "Categories heading",
+      "default": "Categories"
+    },
+    {
+      "type": "text",
+      "id": "links_heading",
+      "label": "Links heading",
+      "default": "Links"
+    },
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "Brand name",
+      "default": "EARTH/CO"
+    },
+    {
+      "type": "textarea",
+      "id": "brand_meta",
+      "label": "Brand meta",
+      "default": "EST. 2024\nALL RIGHTS RESERVED\nMADE WITH CARE"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Earth Footer"
+    }
+  ]
+}
+{% endschema %}

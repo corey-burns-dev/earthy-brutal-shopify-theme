@@ -1,0 +1,119 @@
+<section class="page-shell earth-page-tight">
+  <div class="earth-wrap">
+    <article class="earth-pdp earth-shadow-xl">
+      <div class="earth-pdp-media-wrap">
+        <div class="earth-pdp-media earth-pdp-media--sand earth-shadow-lg">
+          {%- if product.featured_image != blank -%}
+            {{ product.featured_image | image_url: width: 1400 | image_tag: loading: 'eager', alt: product.featured_image.alt }}
+          {%- else -%}
+            {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          {%- endif -%}
+        </div>
+
+        {%- if product.images.size > 1 -%}
+          <div class="earth-pdp-thumbs">
+            {%- for image in product.images limit: section.settings.gallery_limit -%}
+              <a href="{{ image | image_url: width: 1600 }}" class="earth-thumb earth-shadow-sm">
+                {{ image | image_url: width: 220 | image_tag: loading: 'lazy', alt: image.alt }}
+              </a>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="earth-pdp-info">
+        <p class="earth-mono earth-k-label">{{ section.settings.eyebrow_label }}</p>
+        <h1 class="earth-title earth-page-title">{{ product.title }}</h1>
+        <p class="earth-mono earth-pdp-price">{{ product.selected_or_first_available_variant.price | money }}</p>
+
+        {%- form 'product', product, class: 'earth-product-form' -%}
+          {%- if product.has_only_default_variant == false -%}
+            {%- for option in product.options_with_values -%}
+              <label class="earth-mono earth-form-label" for="Option-{{ section.id }}-{{ forloop.index0 }}">{{ option.name }}</label>
+              <select
+                id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                class="earth-select earth-form-field-gap"
+                name="options[{{ option.name | escape }}]"
+              >
+                {%- for value in option.values -%}
+                  <option value="{{ value | escape }}" {% if option.selected_value == value %}selected="selected"{% endif %}>{{ value }}</option>
+                {%- endfor -%}
+              </select>
+            {%- endfor -%}
+          {%- endif -%}
+
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+
+          <label class="earth-mono earth-form-label" for="Qty-{{ section.id }}">{{ section.settings.quantity_label }}</label>
+          <input id="Qty-{{ section.id }}" type="number" name="quantity" min="1" value="1" class="earth-qty">
+
+          <button
+            type="submit"
+            name="add"
+            class="earth-btn earth-btn--dark earth-shadow-sm earth-w-full earth-stack-gap-sm"
+            {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}
+          >
+            {%- if product.selected_or_first_available_variant.available -%}
+              {{ section.settings.add_to_cart_label }}
+            {%- else -%}
+              {{ section.settings.sold_out_label }}
+            {%- endif -%}
+          </button>
+        {%- endform -%}
+
+        {%- if section.settings.show_description and product.description != blank -%}
+          <div class="earth-pdp-desc earth-mono">
+            {{ product.description }}
+          </div>
+        {%- endif -%}
+      </div>
+    </article>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Earth Main Product",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow_label",
+      "label": "Eyebrow label",
+      "default": "Product"
+    },
+    {
+      "type": "range",
+      "id": "gallery_limit",
+      "label": "Thumbnail count",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "text",
+      "id": "quantity_label",
+      "label": "Quantity label",
+      "default": "Quantity"
+    },
+    {
+      "type": "text",
+      "id": "add_to_cart_label",
+      "label": "Add to cart label",
+      "default": "Add to Cart"
+    },
+    {
+      "type": "text",
+      "id": "sold_out_label",
+      "label": "Sold out label",
+      "default": "Sold Out"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Show product description",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

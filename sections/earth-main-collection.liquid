@@ -1,0 +1,145 @@
+<section class="page-shell earth-page-tight">
+  <div class="earth-wrap earth-products">
+    <div class="earth-collection-head earth-shadow-lg">
+      <div>
+        <p class="earth-mono earth-k-label">{{ section.settings.eyebrow_label }}</p>
+        <h1 class="earth-title earth-page-title">{{ collection.title }}</h1>
+        {%- if section.settings.show_description and collection.description != blank -%}
+          <div class="earth-mono earth-page-subtitle">{{ collection.description }}</div>
+        {%- endif -%}
+      </div>
+
+      <div class="earth-collection-tools">
+        <span class="earth-mono">{{ collection.products_count }} {{ section.settings.items_label }}</span>
+        <form method="get" action="{{ collection.url }}">
+          <label class="earth-mono" for="SortBy-{{ section.id }}">{{ section.settings.sort_label }}</label>
+          <select id="SortBy-{{ section.id }}" name="sort_by" class="earth-select" onchange="this.form.submit()">
+            {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+            {%- for option in collection.sort_options -%}
+              <option value="{{ option.value }}" {% if option.value == sort_by %}selected="selected"{% endif %}>{{ option.name }}</option>
+            {%- endfor -%}
+          </select>
+        </form>
+      </div>
+    </div>
+
+    {%- paginate collection.products by section.settings.products_per_page -%}
+      <div class="earth-product-grid">
+        {%- for product in collection.products -%}
+          <article class="earth-product earth-shadow-lg">
+            <a href="{{ product.url }}" class="earth-product-media" style="display:block; background: {% cycle '#c9a87c', '#7a8b5c', '#c67a4a', '#8b7355' %};">
+              {%- if product.featured_image -%}
+                {{ product.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', alt: product.featured_image.alt }}
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+              <span class="earth-id-chip earth-mono">#{{ forloop.index | prepend: '00' | slice: -3, 3 }}</span>
+            </a>
+
+            <div class="earth-product-meta">
+              <h2 class="earth-title earth-product-name"><a href="{{ product.url }}">{{ product.title }}</a></h2>
+              <span class="earth-mono earth-price">{{ product.price | money }}</span>
+            </div>
+
+            <a href="{{ product.url }}" class="earth-btn earth-btn--dark earth-w-full">{{ section.settings.product_button_label }}</a>
+          </article>
+        {%- else -%}
+          <p class="earth-mono">{{ section.settings.empty_text }}</p>
+        {%- endfor -%}
+      </div>
+
+      {%- if paginate.pages > 1 -%}
+        <nav class="earth-pagination" aria-label="Pagination">
+          {%- if paginate.previous -%}
+            <a class="earth-btn earth-btn--light earth-shadow-sm" href="{{ paginate.previous.url }}">{{ section.settings.previous_label }}</a>
+          {%- endif -%}
+
+          <span class="earth-mono">
+            {{ section.settings.page_label }} {{ paginate.current_page }} {{ section.settings.of_label }} {{ paginate.pages }}
+          </span>
+
+          {%- if paginate.next -%}
+            <a class="earth-btn earth-btn--light earth-shadow-sm" href="{{ paginate.next.url }}">{{ section.settings.next_label }}</a>
+          {%- endif -%}
+        </nav>
+      {%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Earth Main Collection",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Products per page",
+      "min": 8,
+      "max": 32,
+      "step": 4,
+      "default": 16
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_label",
+      "label": "Eyebrow label",
+      "default": "Collection"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Show collection description",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "items_label",
+      "label": "Items label",
+      "default": "Items"
+    },
+    {
+      "type": "text",
+      "id": "sort_label",
+      "label": "Sort label",
+      "default": "Sort"
+    },
+    {
+      "type": "text",
+      "id": "product_button_label",
+      "label": "Product button label",
+      "default": "View Product"
+    },
+    {
+      "type": "text",
+      "id": "empty_text",
+      "label": "Empty state text",
+      "default": "No products found in this collection."
+    },
+    {
+      "type": "text",
+      "id": "previous_label",
+      "label": "Previous page label",
+      "default": "Previous"
+    },
+    {
+      "type": "text",
+      "id": "next_label",
+      "label": "Next page label",
+      "default": "Next"
+    },
+    {
+      "type": "text",
+      "id": "page_label",
+      "label": "Page label",
+      "default": "Page"
+    },
+    {
+      "type": "text",
+      "id": "of_label",
+      "label": "Page separator label",
+      "default": "of"
+    }
+  ]
+}
+{% endschema %}

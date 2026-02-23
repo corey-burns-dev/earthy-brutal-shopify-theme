@@ -1,0 +1,86 @@
+<section class="page-shell earth-page-tight">
+  <div class="earth-wrap earth-products">
+    {%- assign picked_collection = section.settings.collection -%}
+
+    <div class="earth-product-grid">
+      {%- if picked_collection != blank and picked_collection.products_count > 0 -%}
+        {%- for product in picked_collection.products limit: section.settings.limit -%}
+          <article class="earth-product earth-shadow-lg">
+            <div class="earth-product-media" style="background: {% cycle '#c9a87c', '#7a8b5c', '#c67a4a', '#8b7355' %};">
+              {%- if product.featured_image != blank -%}
+                {{ product.featured_image | image_url: width: 700 | image_tag: loading: 'lazy', alt: product.featured_image.alt }}
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+              <span class="earth-id-chip earth-mono">#{{ forloop.index | prepend: '00' | slice: -3, 3 }}</span>
+            </div>
+
+            <div class="earth-product-meta">
+              <h3 class="earth-title earth-product-name">{{ product.title }}</h3>
+              <span class="earth-mono earth-price">{{ product.price | money }}</span>
+            </div>
+
+            <a href="{{ product.url }}" class="earth-btn earth-btn--dark earth-w-full">
+              {{ section.settings.cta_label }}
+            </a>
+          </article>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..4) -%}
+          <article class="earth-product earth-shadow-lg">
+            <div class="earth-product-media" style="background: {% cycle '#c9a87c', '#7a8b5c', '#c67a4a', '#8b7355' %};">
+              {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              <span class="earth-id-chip earth-mono">#00{{ i }}</span>
+            </div>
+            <div class="earth-product-meta">
+              <h3 class="earth-title earth-product-name">{{ section.settings.fallback_title }}</h3>
+              <span class="earth-mono earth-price">{{ 9900 | money }}</span>
+            </div>
+            <a href="#" class="earth-btn earth-btn--dark earth-w-full">
+              {{ section.settings.cta_label }}
+            </a>
+          </article>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Earth Featured Collection",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "limit",
+      "label": "Products to show",
+      "min": 4,
+      "max": 16,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "text",
+      "id": "fallback_title",
+      "label": "Fallback product title",
+      "default": "Sample Product"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Product button label",
+      "default": "View Product"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Earth Featured Collection"
+    }
+  ]
+}
+{% endschema %}

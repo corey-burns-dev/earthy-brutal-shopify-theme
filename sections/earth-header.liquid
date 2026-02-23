@@ -1,0 +1,68 @@
+<section class="page-shell">
+  <div class="earth-wrap">
+    <nav class="earth-nav earth-shadow-lg">
+      <div class="earth-nav-inner">
+        <div class="earth-brand-row">
+          <span class="earth-badge">{{ section.settings.badge_text }}</span>
+          <span class="earth-title earth-logo">{{ section.settings.logo_text }}</span>
+        </div>
+
+        <div class="earth-controls">
+          <a href="{{ routes.cart_url }}" class="earth-btn earth-btn--light earth-shadow-sm">
+            {{ section.settings.cart_label }} ({{ cart.item_count }})
+          </a>
+          {%- if shop.customer_accounts_enabled -%}
+            {%- if customer -%}
+              <a href="{{ routes.account_url }}" class="earth-btn earth-btn--dark earth-shadow-sm">{{ section.settings.account_label }}</a>
+            {%- else -%}
+              <a href="{{ routes.account_login_url }}" class="earth-btn earth-btn--dark earth-shadow-sm">{{ section.settings.login_label }}</a>
+            {%- endif -%}
+          {%- endif -%}
+        </div>
+      </div>
+    </nav>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Earth Header",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "Store"
+    },
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo text",
+      "default": "EARTH/CO"
+    },
+    {
+      "type": "text",
+      "id": "cart_label",
+      "label": "Cart button label",
+      "default": "Cart"
+    },
+    {
+      "type": "text",
+      "id": "account_label",
+      "label": "Account button label",
+      "default": "Account"
+    },
+    {
+      "type": "text",
+      "id": "login_label",
+      "label": "Login button label",
+      "default": "Login"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Earth Header"
+    }
+  ]
+}
+{% endschema %}

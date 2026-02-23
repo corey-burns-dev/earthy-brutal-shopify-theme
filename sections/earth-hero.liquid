@@ -1,0 +1,67 @@
+<section class="page-shell earth-page-tight">
+  <div class="earth-wrap">
+    <header class="earth-hero">
+      <div class="earth-hero-panel earth-hero-copy earth-shadow-xl">
+        <h1 class="earth-display earth-hero-heading">
+          {{ section.settings.headline_line_1 }}<br>
+          {{ section.settings.headline_line_2 }}
+        </h1>
+
+        <div class="earth-mono earth-hero-notes">
+          {{ section.settings.notes | newline_to_br }}
+        </div>
+      </div>
+
+      <div class="earth-hero-panel earth-hero-media earth-shadow-xl">
+        {%- if section.settings.image != blank -%}
+          {{ section.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy', alt: section.settings.image.alt }}
+        {%- else -%}
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+        <div class="earth-hero-tag earth-kicker earth-shadow-sm">{{ section.settings.tag_text }}</div>
+      </div>
+    </header>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Earth Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "headline_line_1",
+      "label": "Headline line 1",
+      "default": "ROOTED"
+    },
+    {
+      "type": "text",
+      "id": "headline_line_2",
+      "label": "Headline line 2",
+      "default": "STYLE"
+    },
+    {
+      "type": "textarea",
+      "id": "notes",
+      "label": "Notes",
+      "default": "// ORGANIC COLLECTION.\n// SUSTAINABLE.\n// EARTH APPROVED."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero image"
+    },
+    {
+      "type": "text",
+      "id": "tag_text",
+      "label": "Tag text",
+      "default": "NEW IN"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Earth Hero"
+    }
+  ]
+}
+{% endschema %}

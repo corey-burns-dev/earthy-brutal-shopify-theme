@@ -1,0 +1,78 @@
+{
+  "sections": {
+    "earth_header": {
+      "type": "earth-header",
+      "settings": {
+        "badge_text": "Store",
+        "logo_text": "EARTH/CO"
+      }
+    },
+    "earth_hero": {
+      "type": "earth-hero",
+      "settings": {
+        "headline_line_1": "ROOTED",
+        "headline_line_2": "STYLE",
+        "notes": "// ORGANIC COLLECTION.\n// SUSTAINABLE.\n// EARTH APPROVED.",
+        "tag_text": "NEW IN"
+      }
+    },
+    "earth_categories": {
+      "type": "earth-categories",
+      "blocks": {
+        "all": {
+          "type": "category",
+          "settings": {
+            "label": "ALL"
+          }
+        },
+        "tops": {
+          "type": "category",
+          "settings": {
+            "label": "TOPS"
+          }
+        },
+        "bottoms": {
+          "type": "category",
+          "settings": {
+            "label": "BOTTOMS"
+          }
+        },
+        "footwear": {
+          "type": "category",
+          "settings": {
+            "label": "FOOTWEAR"
+          }
+        },
+        "bags": {
+          "type": "category",
+          "settings": {
+            "label": "BAGS"
+          }
+        },
+        "natural": {
+          "type": "category",
+          "settings": {
+            "label": "NATURAL"
+          }
+        }
+      },
+      "block_order": ["all", "tops", "bottoms", "footwear", "bags", "natural"],
+      "settings": {}
+    },
+    "earth_collection": {
+      "type": "earth-featured-collection",
+      "settings": {
+        "limit": 8,
+        "fallback_title": "Sample Product"
+      }
+    },
+    "earth_footer": {
+      "type": "earth-footer",
+      "settings": {
+        "brand_name": "EARTH/CO",
+        "brand_meta": "EST. 2024\nALL RIGHTS RESERVED\nMADE WITH CARE"
+      }
+    }
+  },
+  "order": ["earth_header", "earth_hero", "earth_categories", "earth_collection", "earth_footer"]
+}

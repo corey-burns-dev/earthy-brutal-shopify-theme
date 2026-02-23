@@ -1,0 +1,25 @@
+{
+  "sections": {
+    "earth_header": {
+      "type": "earth-header",
+      "settings": {
+        "badge_text": "Store",
+        "logo_text": "EARTH/CO"
+      }
+    },
+    "main": {
+      "type": "earth-main-collection",
+      "settings": {
+        "products_per_page": 16
+      }
+    },
+    "earth_footer": {
+      "type": "earth-footer",
+      "settings": {
+        "brand_name": "EARTH/CO",
+        "brand_meta": "EST. 2024\nALL RIGHTS RESERVED\nMADE WITH CARE"
+      }
+    }
+  },
+  "order": ["earth_header", "main", "earth_footer"]
+}
